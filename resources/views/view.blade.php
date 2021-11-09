@@ -13,7 +13,7 @@
 	        </h2>
        </div>
        <div class=" position-absolute top-0 end-0">
-         	<a href="{{route('add')}}"><button class="btn btn-primary">Add Customer</button></a>
+         	<a href="{{ route('customer.create') }}"><button class="btn btn-primary">Add Customer</button></a>
         </div>
     </div>
     </x-slot>
@@ -37,8 +37,16 @@
             <td>{{ $view->email}}</td>
             <td>{{ $view->phone}}</td>
             <td>
-              	<a href="{{('editcustomer/'.$view->id)}}" class="btn btn-primary">Edit</a>
-              	<a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a>
+              	<!-- <a href="{{('editcustomer/'.$view->id)}}" class="btn btn-primary">Edit</a> -->
+                <a href="{{ url('customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
+              </td>
+              	<!-- <a href="{{ url('customer/'.$view->id.'/destory')}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->
+                <td>
+                <form action="{{ url('customer/'.$view->id) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</button>
+                </form>
             </td>
            
          </tr>
